@@ -14,7 +14,10 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in relative">
+      {/* Ambient background (subtle) */}
+      <div className="pointer-events-none absolute -top-10 -right-10 w-72 h-72 rounded-full bg-primary/5 blur-3xl motion-safe:animate-float" />
+      <div className="pointer-events-none absolute top-40 -left-16 w-96 h-96 rounded-full bg-accent/5 blur-3xl motion-safe:animate-drift" style={{ animationDelay: "-5s" }} />
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
@@ -25,7 +28,11 @@ const Dashboard = () => {
             Secure Medical Record Authority Dashboard
           </p>
         </div>
-        <Button variant="secure" onClick={() => navigate("/issue-report")}>
+        <Button
+          variant="secure"
+          onClick={() => navigate("/issue-report")}
+          className="motion-safe:transition-transform motion-safe:hover:scale-[1.01] active:scale-[0.99]"
+        >
           <FilePlus className="w-4 h-4" />
           Issue New Report
         </Button>
@@ -65,10 +72,16 @@ const Dashboard = () => {
       </div>
 
       {/* Recent Reports */}
-      <div className="glass-card rounded-xl p-6 animate-slide-up" style={{ animationDelay: "0.4s" }}>
+      <div className="glass-card rounded-xl p-6 animate-slide-up relative overflow-hidden" style={{ animationDelay: "0.4s" }}>
+        <div className="pointer-events-none absolute -top-12 -right-12 w-48 h-48 rounded-full bg-primary/10 blur-3xl motion-safe:animate-float" style={{ animationDelay: "-2s" }} />
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-lg font-semibold text-foreground">Recent Reports</h2>
-          <Button variant="ghost" size="sm" onClick={() => navigate("/issued-reports")}>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => navigate("/issued-reports")}
+            className="motion-safe:transition-transform motion-safe:hover:translate-y-[-1px]"
+          >
             View All
           </Button>
         </div>
@@ -86,7 +99,10 @@ const Dashboard = () => {
             </thead>
             <tbody>
               {recentReports.map((report) => (
-                <tr key={report.id} className="border-b border-border/50 hover:bg-muted/30 transition-colors">
+                <tr
+                  key={report.id}
+                  className="border-b border-border/50 hover:bg-muted/30 transition-colors motion-safe:transition-transform motion-safe:hover:translate-y-[-1px]"
+                >
                   <td className="py-3 px-4 text-sm font-medium text-foreground">{report.id}</td>
                   <td className="py-3 px-4 text-sm text-foreground">{report.patient}</td>
                   <td className="py-3 px-4 text-sm text-muted-foreground">{report.type}</td>

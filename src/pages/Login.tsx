@@ -13,6 +13,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  const mockCreds = {
+    email: "dr.sarah@medaegis.test",
+    password: "MedAegis2026!",
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -31,7 +36,17 @@ const Login = () => {
         className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative overflow-hidden"
         style={{ background: "var(--gradient-hero)" }}
       >
+        {/* Ambient motion layers */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] rounded-full bg-primary/10 blur-3xl motion-safe:animate-drift" />
+          <div className="absolute bottom-[-6rem] right-[-6rem] w-[34rem] h-[34rem] rounded-full bg-accent/10 blur-3xl motion-safe:animate-float" style={{ animationDelay: "-1.5s" }} />
+          <div className="absolute top-24 right-10 w-72 h-72 rounded-full bg-success/10 blur-3xl motion-safe:animate-float" style={{ animationDelay: "-3s" }} />
+        </div>
+
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiLz48cGF0aCBkPSJNMjAgMjBtLTEgMGExIDEgMCAxIDAgMiAwYTEgMSAwIDEgMCAtMiAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMDUpIi8+PC9nPjwvc3ZnPg==')] opacity-30" />
+        <div className="absolute inset-y-0 left-0 w-[55%] pointer-events-none overflow-hidden">
+          <div className="absolute inset-y-0 -left-1/3 w-2/3 bg-white/10 skew-x-[-18deg] blur-xl opacity-0 motion-safe:animate-shimmer" />
+        </div>
         
         <div className="relative z-10 flex flex-col justify-center px-12 xl:px-20">
           <div className="mb-8 animate-fade-in">
@@ -76,8 +91,12 @@ const Login = () => {
       </div>
 
       {/* Right Panel - Login Form */}
-      <div className="flex-1 flex items-center justify-center px-6 py-12 bg-background">
-        <div className="w-full max-w-md animate-scale-in">
+        <div className="flex-1 flex items-center justify-center px-6 py-12 bg-background relative overflow-hidden">
+        {/* subtle right-side ambience */}
+        <div className="absolute -top-16 -right-16 w-80 h-80 rounded-full bg-primary/5 blur-3xl motion-safe:animate-float" />
+        <div className="absolute -bottom-24 -left-16 w-96 h-96 rounded-full bg-accent/5 blur-3xl motion-safe:animate-drift" style={{ animationDelay: "-6s" }} />
+
+        <div className="w-full max-w-md animate-scale-in relative">
           <div className="mb-8">
             <MedAegisLogo size="lg" className="mb-6 lg:hidden" />
             <h2 className="text-2xl font-semibold text-foreground mb-2">
@@ -86,6 +105,35 @@ const Login = () => {
             <p className="text-muted-foreground">
               Sign in to access the secure portal
             </p>
+          </div>
+
+          {/* Mock credentials helper (placeholder auth) */}
+          <div className="glass-card rounded-xl p-4 mb-6 relative overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none">
+              <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-primary/10 blur-2xl motion-safe:animate-float" />
+            </div>
+            <div className="relative">
+              <p className="text-sm font-medium text-foreground">Mock credentials</p>
+              <p className="text-xs text-muted-foreground mt-1">
+                Email: <span className="font-mono text-foreground/90">{mockCreds.email}</span>
+                <br />
+                Password: <span className="font-mono text-foreground/90">{mockCreds.password}</span>
+              </p>
+              <div className="mt-3 flex gap-2">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  className="motion-safe:transition-transform motion-safe:hover:scale-[1.01]"
+                  onClick={() => {
+                    setEmail(mockCreds.email);
+                    setPassword(mockCreds.password);
+                  }}
+                >
+                  Use mock login
+                </Button>
+              </div>
+            </div>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-5">
@@ -149,7 +197,7 @@ const Login = () => {
               type="submit"
               variant="secure"
               size="lg"
-              className="w-full"
+              className="w-full motion-safe:transition-transform motion-safe:hover:scale-[1.01] active:scale-[0.99]"
               disabled={isLoading}
             >
               {isLoading ? (
